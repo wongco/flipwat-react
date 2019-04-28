@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-class NavBar extends Component {
+class Header extends Component {
   public render(): React.ReactNode {
-    return <div>Navbar</div>;
+    return <div>Header</div>;
   }
 }
 
-export default NavBar;
+export default Header;
