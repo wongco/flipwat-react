@@ -1,29 +1,17 @@
 .App {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   text-align: center;
   height: 100vh;
   width: 100vw;
 }
 
-.App-Header {
-  height: 6em;
-  width: 100%;
-  outline: 1px solid black;
-}
-
-.App-Content {
-  display: flex;
-  flex: 1 1 auto;
-  flex-direction: row;
-}
-
-.App-Content--CategoryList {
+.App-Panel {
   width: 20em;
   outline: 1px solid black;
 }
 
-.App-Content--Main {
+.App-Content {
   flex: 1 1 0;
   outline: 1px solid black;
 }
