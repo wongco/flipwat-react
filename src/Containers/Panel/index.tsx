@@ -12,7 +12,7 @@ class Panel extends Component<PanelProps> {
     */
   }
 
-  public getCategory = (id: string): void => {
+  public navigateToCategory = (id: string): void => {
     this.props.history.push(`/category/${id}`);
   };
 
@@ -22,7 +22,7 @@ class Panel extends Component<PanelProps> {
         <Title name="Flipwat" />
         <CategoryList
           categories={this.props.categories}
-          getCategory={this.getCategory}
+          navigateToCategory={this.navigateToCategory}
         />
       </Wrapper>
     );

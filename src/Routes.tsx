@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import HomePage from './Components/HomePage';
+import CategoryView from './Containers/CategoryView';
 
 class Routes extends Component {
   public render(): React.ReactNode {
@@ -10,7 +11,9 @@ class Routes extends Component {
         <Route
           exact
           path="/category/:id"
-          render={(props): React.ReactNode => <div>Category {props.match.params.id} Info</div>}
+          render={(props): React.ReactNode => (
+            <CategoryView id={props.match.params.id} />
+          )}
         />
         <Route
           exact

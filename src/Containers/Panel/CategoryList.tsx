@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class CategoryList extends Component<CategoryListProps> {
   public handleClick = (evt: CategoryClickEvent): void => {
     const { id } = evt.target;
-    this.props.getCategory(id);
+    this.props.navigateToCategory(id);
   };
 
   public render(): React.ReactNode {
@@ -35,7 +35,7 @@ interface CategoryClickEventTarget extends EventTarget {
 
 interface CategoryListProps {
   categories: Category[];
-  getCategory: (id: string) => void;
+  navigateToCategory: (id: string) => void;
 }
 
 interface Category {
