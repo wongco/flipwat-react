@@ -7,10 +7,27 @@
   width: 100%;
   height: 100%;
   color: white;
-  background-color: rgb(143, 143, 143);
+  background-color: rgb(68, 68, 68);
 }
 
 .Panel-Title {
   font-size: 2em;
   font-weight: 600;
+}
+
+.Panel-CategoryList {
+  width: 100%;
+  text-align: left;
+  padding: 0 1em;
+}
+
+.Panel-CategoryList--Link {
+  cursor: pointer;
+  color: rgb(184, 184, 184);
+  transition: background-color 0.25s, color 0.25s;
+}
+
+.Panel-CategoryList--Link:hover {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.228);
 }

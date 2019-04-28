@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import './Panel.css';
 
 class Wrapper extends Component<WrapperProps> {
   public render(): React.ReactNode {
-    return <div>{this.props.children}</div>;
+    return <div className="Panel">{this.props.children}</div>;
   }
 }
 

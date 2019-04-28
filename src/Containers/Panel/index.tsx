@@ -1,32 +1,35 @@
 import React, { Component } from 'react';
-import './Panel.css';
 import CategoryList from './CategoryList';
 import Title from './Title';
 import Wrapper from './Wrapper';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 
-class Panel extends Component<CategoryListProps> {
-  public static defaultProps = {
-    categories: [
-      { name: 'catOne', id: '1231ds' },
-      { name: 'catTwo', id: '34534ss' },
-    ],
-  };
-
+class Panel extends Component<PanelProps> {
   public async componentDidMount(): Promise<void> {
-    // do async work to obtain categories data from API
+    /* check if this.props.categories.length = 0
+         true, set loading state
+         dispatch action to getCategories
+    */
   }
+
+  public getCategory = (id: string): void => {
+    this.props.history.push(`/category/${id}`);
+  };
 
   public render(): React.ReactNode {
     return (
       <Wrapper>
         <Title name="Flipwat" />
-        <CategoryList categories={this.props.categories} />
+        <CategoryList
+          categories={this.props.categories}
+          getCategory={this.getCategory}
+        />
       </Wrapper>
     );
   }
 }
 
-interface CategoryListProps {
+interface PanelProps extends RouteComponentProps {
   categories: Category[];
 }
 
@@ -35,4 +38,4 @@ interface Category {
   id: string;
 }
 
-export default Panel;
+export default withRouter(Panel);
