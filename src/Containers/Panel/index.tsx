@@ -4,7 +4,14 @@ import CategoryList from './CategoryList';
 import Title from './Title';
 import Wrapper from './Wrapper';
 
-class Panel extends Component {
+class Panel extends Component<CategoryListProps> {
+  public static defaultProps = {
+    categories: [
+      { name: 'catOne', id: '1231ds' },
+      { name: 'catTwo', id: '34534ss' },
+    ],
+  };
+
   public async componentDidMount(): Promise<void> {
     // do async work to obtain categories data from API
   }
@@ -13,10 +20,19 @@ class Panel extends Component {
     return (
       <Wrapper>
         <Title name="Flipwat" />
-        <CategoryList categories={[{ name: 'catOne' }, { name: 'catTwo' }]} />
+        <CategoryList categories={this.props.categories} />
       </Wrapper>
     );
   }
+}
+
+interface CategoryListProps {
+  categories: Category[];
+}
+
+interface Category {
+  name: string;
+  id: string;
 }
 
 export default Panel;

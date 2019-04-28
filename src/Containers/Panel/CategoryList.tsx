@@ -7,8 +7,8 @@ class CategoryList extends Component<CategoryListProps> {
         <div>Categories go here!</div>
         <div>
           {this.props.categories.map(
-            (category, idx): React.ReactNode => (
-              <div key={idx}>{category.name}</div>
+            (category): React.ReactNode => (
+              <div key={category.id}>{category.name}</div>
             ),
           )}
         </div>
@@ -23,6 +23,7 @@ interface CategoryListProps {
 
 interface Category {
   name: string;
+  id: string;
 }
 
 export default CategoryList;
