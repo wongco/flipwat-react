@@ -8,12 +8,7 @@ class App extends Component {
     return (
       <div className="App">
         <div className="App-Panel">
-          <Panel
-            categories={[
-              { name: 'catOne', id: '1231ds' },
-              { name: 'catTwo', id: '34534ss' },
-            ]}
-          />
+          <Panel />
         </div>
         <div className="App-Content">
           <Routes />

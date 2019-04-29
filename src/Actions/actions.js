@@ -5,6 +5,8 @@ import {
   GET_CATEGORY_DETAILS_SUCCESS,
   GET_CATEGORY_DETAILS_FAIL,
 } from './types';
+import axios from 'axios';
+import { apiCall, createGetCategoriesReqObj } from '../Helpers/apiHelper';
 
 export function setAppToLoading() {
   return {
@@ -33,20 +35,19 @@ export function loadCategoryNamesFail(error) {
 // thunk to retreive all category names
 export function loadCategoryNames() {
   return async function(dispatch) {
+    // initiate loading state
     dispatch(setAppToLoading());
     try {
-      // dispatch after success - replace test with axios request
-      const categories = [
-        {
-          id: 'test123',
-          name: 'catOne',
-        },
-        {
-          id: 'test234',
-          name: 'catTwo',
-        },
-      ];
-      dispatch(loadCategoryNamesSuccess(categories));
+      const relativePath = '/categories';
+      const apiResponse = await apiCall(
+        createGetCategoriesReqObj(relativePath),
+      );
+      const { categories } = apiResponse.data;
+      const cleanCategories = categories.map(category => {
+        const { id, name, createdAt, updatedAt } = category;
+        return { id, name, createdAt, updatedAt };
+      });
+      dispatch(loadCategoryNamesSuccess(cleanCategories));
     } catch (error) {
       dispatch(loadCategoryNamesFail(error));
     }

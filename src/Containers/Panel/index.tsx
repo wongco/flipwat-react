@@ -3,13 +3,14 @@ import CategoryList from './CategoryList';
 import Title from './Title';
 import Wrapper from './Wrapper';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { loadCategoryNames } from '../../Actions/actions';
 
 class Panel extends Component<PanelProps> {
   public async componentDidMount(): Promise<void> {
-    /* check if this.props.categories.length = 0
-         true, set loading state
-         dispatch action to getCategories
-    */
+    if (this.props.categories.length === 0) {
+      this.props.loadCategoryNames();
+    }
   }
 
   public navigateToCategory = (id: string): void => {
@@ -17,11 +18,14 @@ class Panel extends Component<PanelProps> {
   };
 
   public render(): React.ReactNode {
+    const { loading, error, categories } = this.props;
     return (
       <Wrapper>
         <Title name="Flipwat" />
+        {loading && <div>Updating...</div>}
+        {error && <div>Error getting updated categories!</div>}
         <CategoryList
-          categories={this.props.categories}
+          categories={categories}
           navigateToCategory={this.navigateToCategory}
         />
       </Wrapper>
@@ -29,13 +33,30 @@ class Panel extends Component<PanelProps> {
   }
 }
 
+function mapStateToProps(state: any): any {
+  const { categories, error, loading } = state;
+  return {
+    loading,
+    error,
+    categories,
+  };
+}
+
+const connectedComponent = connect<PanelProps>(
+  mapStateToProps,
+  { loadCategoryNames },
+);
+
+export default connectedComponent(withRouter(Panel));
+
 interface PanelProps extends RouteComponentProps {
+  loading: boolean;
+  error: boolean | Error;
   categories: Category[];
+  loadCategoryNames: () => void;
 }
 
 interface Category {
   name: string;
   id: string;
 }
-
-export default withRouter(Panel);
