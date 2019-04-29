@@ -2,8 +2,8 @@ import {
   SET_LOADING,
   GET_CATEGORY_NAMES_SUCCESS,
   GET_CATEGORY_NAMES_FAIL,
-  GET_CATEGORY_DETAILS_SUCCESS,
-  GET_CATEGORY_DETAILS_FAIL,
+  // GET_CATEGORY_DETAILS_SUCCESS,
+  // GET_CATEGORY_DETAILS_FAIL,
 } from './types';
 
 import { apiCall, createGetCategoriesReqObj } from '../Helpers/apiHelper';
@@ -14,11 +14,11 @@ export function setAppToLoading() {
   };
 }
 
-export function loadCategoryNamesSuccess(categories) {
+export function loadCategoryNamesSuccess(categoryTitles) {
   return {
     type: GET_CATEGORY_NAMES_SUCCESS,
     payload: {
-      categories,
+      categoryTitles,
     },
   };
 }

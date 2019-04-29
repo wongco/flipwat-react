@@ -11,9 +11,7 @@ class Routes extends Component {
         <Route
           exact
           path="/category/:id"
-          render={(props): React.ReactNode => (
-            <CategoryView id={props.match.params.id} />
-          )}
+          render={(props): React.ReactNode => <CategoryView {...props} />}
         />
         <Route
           exact

@@ -9,12 +9,12 @@ class CategoryList extends Component<CategoryListProps> {
   public render(): React.ReactNode {
     return (
       <div className="Panel-CategoryList" onClick={this.handleClick}>
-        {this.props.categories.map(
+        {this.props.categoryTitles.map(
           (category): React.ReactNode => {
-            const { id } = category;
+            const { id, name } = category;
             return (
               <div className="Panel-CategoryList--Link" key={id} id={id}>
-                {category.name}
+                {name}
               </div>
             );
           },
@@ -34,7 +34,7 @@ interface CategoryClickEventTarget extends EventTarget {
 }
 
 interface CategoryListProps {
-  categories: Category[];
+  categoryTitles: Category[];
   navigateToCategory: (id: string) => void;
 }
 

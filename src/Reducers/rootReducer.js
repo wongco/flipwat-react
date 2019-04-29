@@ -2,14 +2,14 @@ import {
   SET_LOADING,
   GET_CATEGORY_NAMES_SUCCESS,
   GET_CATEGORY_NAMES_FAIL,
-  GET_CATEGORY_DETAILS_SUCCESS,
-  GET_CATEGORY_DETAILS_FAIL,
+  // GET_CATEGORY_DETAILS_SUCCESS,
+  // GET_CATEGORY_DETAILS_FAIL,
 } from '../Actions/types';
 
 const INITIAL_STATE = {
   loading: false,
   error: false,
-  categories: [],
+  categoryTitles: [],
 };
 
 function rootReducer(state = INITIAL_STATE, action) {
@@ -20,12 +20,12 @@ function rootReducer(state = INITIAL_STATE, action) {
     }
 
     case GET_CATEGORY_NAMES_SUCCESS: {
-      const { categories } = action.payload;
+      const { categoryTitles } = action.payload;
       const newState = {
         ...state,
         loading: false,
         error: false,
-        categories,
+        categoryTitles,
       };
       return newState;
     }
@@ -39,9 +39,11 @@ function rootReducer(state = INITIAL_STATE, action) {
       };
       return newState;
     }
-  }
 
-  return state;
+    default: {
+      return state;
+    }
+  }
 }
 
 export default rootReducer;

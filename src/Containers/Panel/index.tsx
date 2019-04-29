@@ -8,7 +8,7 @@ import { loadCategoryNames } from '../../Actions/actions';
 
 class Panel extends Component<PanelProps> {
   public async componentDidMount(): Promise<void> {
-    if (this.props.categories.length === 0) {
+    if (this.props.categoryTitles.length === 0) {
       this.props.loadCategoryNames();
     }
   }
@@ -18,14 +18,14 @@ class Panel extends Component<PanelProps> {
   };
 
   public render(): React.ReactNode {
-    const { loading, error, categories } = this.props;
+    const { loading, error, categoryTitles } = this.props;
     return (
       <Wrapper>
         <Title name="Flipwat" />
         {loading && <div>Updating...</div>}
         {error && <div>Error getting updated categories!</div>}
         <CategoryList
-          categories={categories}
+          categoryTitles={categoryTitles}
           navigateToCategory={this.navigateToCategory}
         />
       </Wrapper>
@@ -34,11 +34,11 @@ class Panel extends Component<PanelProps> {
 }
 
 function mapStateToProps(state: any): any {
-  const { categories, error, loading } = state;
+  const { categoryTitles, error, loading } = state;
   return {
     loading,
     error,
-    categories,
+    categoryTitles,
   };
 }
 
@@ -52,7 +52,7 @@ export default connectedComponent(withRouter(Panel));
 interface PanelProps extends RouteComponentProps {
   loading: boolean;
   error: boolean | Error;
-  categories: Category[];
+  categoryTitles: Category[];
   loadCategoryNames: () => void;
 }
 
