@@ -1,15 +1,15 @@
 import {
   SET_LOADING,
   GET_CATEGORY_NAMES_SUCCESS,
-  GET_CATEGORY_NAMES_FAIL,
-  // GET_CATEGORY_DETAILS_SUCCESS,
-  // GET_CATEGORY_DETAILS_FAIL,
+  SET_ERROR,
+  GET_CATEGORY_DETAILS_SUCCESS,
 } from '../Actions/types';
 
 const INITIAL_STATE = {
   loading: false,
   error: false,
   categoryTitles: [],
+  categoryDetails: {},
 };
 
 function rootReducer(state = INITIAL_STATE, action) {
@@ -30,7 +30,22 @@ function rootReducer(state = INITIAL_STATE, action) {
       return newState;
     }
 
-    case GET_CATEGORY_NAMES_FAIL: {
+    case GET_CATEGORY_DETAILS_SUCCESS: {
+      const { categoryDetails } = action.payload;
+      const newCategoryDetails = {
+        ...state.categoryDetails,
+        ...categoryDetails,
+      };
+      const newState = {
+        ...state,
+        loading: false,
+        error: false,
+        categoryDetails: newCategoryDetails,
+      };
+      return newState;
+    }
+
+    case SET_ERROR: {
       const { error } = action.payload;
       const newState = {
         ...state,

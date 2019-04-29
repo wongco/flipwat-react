@@ -18,7 +18,7 @@ export function baseApiRequestData(relativePath) {
  * @param { string } relativePath - the relative url path endpoint on the api
  * @return { object } GET request object
  */
-export function createGetCategoriesReqObj(relativePath) {
+export function createGetReqObj(relativePath) {
   return {
     method: 'get',
     ...baseApiRequestData(relativePath),

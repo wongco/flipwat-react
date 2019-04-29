@@ -1,12 +1,11 @@
 import {
   SET_LOADING,
   GET_CATEGORY_NAMES_SUCCESS,
-  GET_CATEGORY_NAMES_FAIL,
-  // GET_CATEGORY_DETAILS_SUCCESS,
-  // GET_CATEGORY_DETAILS_FAIL,
+  SET_ERROR,
+  GET_CATEGORY_DETAILS_SUCCESS,
 } from './types';
 
-import { apiCall, createGetCategoriesReqObj } from '../Helpers/apiHelper';
+import { apiCall, createGetReqObj } from '../Helpers/apiHelper';
 
 export function setAppToLoading() {
   return {
@@ -23,9 +22,18 @@ export function loadCategoryNamesSuccess(categoryTitles) {
   };
 }
 
-export function loadCategoryNamesFail(error) {
+export function loadCategoryDetailsSuccess(categoryDetails) {
   return {
-    type: GET_CATEGORY_NAMES_FAIL,
+    type: GET_CATEGORY_DETAILS_SUCCESS,
+    payload: {
+      categoryDetails,
+    },
+  };
+}
+
+export function setAppToError(error) {
+  return {
+    type: SET_ERROR,
     payload: {
       error,
     },
@@ -39,9 +47,7 @@ export function loadCategoryNames() {
     dispatch(setAppToLoading());
     try {
       const relativePath = '/categories';
-      const apiResponse = await apiCall(
-        createGetCategoriesReqObj(relativePath),
-      );
+      const apiResponse = await apiCall(createGetReqObj(relativePath));
       const { categories } = apiResponse.data;
       const cleanCategories = categories.map(category => {
         const { id, name, createdAt, updatedAt } = category;
@@ -49,19 +55,32 @@ export function loadCategoryNames() {
       });
       dispatch(loadCategoryNamesSuccess(cleanCategories));
     } catch (error) {
-      dispatch(loadCategoryNamesFail(error));
+      dispatch(setAppToError(error));
     }
   };
 }
 
 // thunk to retreive specific category details
-export function loadCategoryDetails(id) {
+export function loadCategoryDetails(categoryId) {
   return async function(dispatch) {
+    // initiate loading state
     dispatch(setAppToLoading());
     try {
-      // dispatch after success
+      const relativePath = `/categories/${categoryId}`;
+      const apiResponse = await apiCall(createGetReqObj(relativePath));
+      const { category } = apiResponse.data;
+      const { id, name, cards, createdAt, updatedAt } = category;
+      const categoryDetails = {
+        [id]: {
+          name,
+          cards,
+          createdAt,
+          updatedAt,
+        },
+      };
+      dispatch(loadCategoryDetailsSuccess(categoryDetails));
     } catch (error) {
-      // dispatch error if errror occured
+      dispatch(setAppToError(error));
     }
   };
 }
