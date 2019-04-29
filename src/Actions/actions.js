@@ -5,7 +5,7 @@ import {
   GET_CATEGORY_DETAILS_SUCCESS,
   GET_CATEGORY_DETAILS_FAIL,
 } from './types';
-import axios from 'axios';
+
 import { apiCall, createGetCategoriesReqObj } from '../Helpers/apiHelper';
 
 export function setAppToLoading() {
