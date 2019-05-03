@@ -65,12 +65,13 @@ class CategoryView extends Component<CategoryViewProps> {
   public render(): React.ReactNode {
     const { id } = this.props.match.params;
     const { loading, error, category, currentQuestion } = this.props;
-    // const showQuestion = Object.keys(currentQuestion).length > 0;
     return (
       <div>
         {loading && <div>Loading...</div>}
         {error && <div>Error obtaining updated Category information!</div>}
-        {category && currentQuestion.cardIdx >= 0 ? (
+        {category &&
+        currentQuestion.cardIdx >= 0 &&
+        currentQuestion.cardIdx < category.cards.length ? (
           <QuestionView
             categoryName={category.name}
             card={category.cards[currentQuestion.cardIdx]}
