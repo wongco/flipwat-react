@@ -3,6 +3,8 @@ import {
   GET_CATEGORY_NAMES_SUCCESS,
   SET_ERROR,
   GET_CATEGORY_DETAILS_SUCCESS,
+  SET_QUESTION,
+  CLEAR_QUESTION,
 } from '../Actions/types';
 
 const INITIAL_STATE = {
@@ -10,7 +12,10 @@ const INITIAL_STATE = {
   error: false,
   categoryTitles: [],
   categoryDetails: {},
-  currentQuestion: {},
+  currentQuestion: {
+    categoryId: '',
+    cardIdx: -1,
+  },
 };
 
 function rootReducer(state = INITIAL_STATE, action) {
@@ -52,6 +57,29 @@ function rootReducer(state = INITIAL_STATE, action) {
         ...state,
         loading: false,
         error,
+      };
+      return newState;
+    }
+
+    case SET_QUESTION: {
+      const { categoryId, cardIdx } = action.payload;
+      const newState = {
+        ...state,
+        currentQuestion: {
+          categoryId,
+          cardIdx,
+        },
+      };
+      return newState;
+    }
+
+    case CLEAR_QUESTION: {
+      const newState = {
+        ...state,
+        currentQuestion: {
+          categoryId: '',
+          cardIdx: -1,
+        },
       };
       return newState;
     }

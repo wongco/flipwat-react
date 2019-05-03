@@ -13,7 +13,7 @@ class Routes extends Component {
           path="/category/:id"
           render={(props): React.ReactNode => <CategoryView {...props} />}
         />
-        <Route
+        {/* <Route
           exact
           path="/category/:id/:cardId"
           render={(props): React.ReactNode => {
@@ -25,7 +25,7 @@ class Routes extends Component {
               </div>
             );
           }}
-        />
+        /> */}
         <Redirect to="/" />
       </Switch>
     );

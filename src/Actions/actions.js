@@ -3,9 +3,27 @@ import {
   GET_CATEGORY_NAMES_SUCCESS,
   SET_ERROR,
   GET_CATEGORY_DETAILS_SUCCESS,
+  SET_QUESTION,
+  CLEAR_QUESTION,
 } from './types';
 
 import { apiCall, createGetReqObj } from '../Helpers/apiHelper';
+
+export function clearQuestion() {
+  return {
+    type: CLEAR_QUESTION,
+  };
+}
+
+export function loadQuestion(categoryId, cardIdx) {
+  return {
+    type: SET_QUESTION,
+    payload: {
+      categoryId,
+      cardIdx,
+    },
+  };
+}
 
 export function setAppToLoading() {
   return {
