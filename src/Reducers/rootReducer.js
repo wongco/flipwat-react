@@ -10,6 +10,7 @@ const INITIAL_STATE = {
   error: false,
   categoryTitles: [],
   categoryDetails: {},
+  currentQuestion: {},
 };
 
 function rootReducer(state = INITIAL_STATE, action) {
