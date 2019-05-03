@@ -17,7 +17,7 @@ class CategoryDetails extends Component<CategoryDetailsProps> {
 
 interface CategoryDetailsProps {
   category: {
-    id: string;
+    categoryId: string;
     name: string;
     cards: Card[];
     createdAt: Date;

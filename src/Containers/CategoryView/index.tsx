@@ -11,14 +11,14 @@ import QuestionView from '../QuestionView';
 
 class CategoryView extends Component<CategoryViewProps> {
   public playCategory = (): void => {
-    const categoryId = this.props.match.params.id;
+    const { categoryId } = this.props.match.params;
     const cardIdx = 0; // starter card
     this.props.loadQuestion(categoryId, cardIdx);
   };
 
   public playRandomCategory = (): void => {
     const { cards } = this.props.category;
-    const categoryId = this.props.match.params.id;
+    const { categoryId } = this.props.match.params;
     const randomCardIdx = Math.floor(Math.random() * cards.length);
     this.props.loadQuestion(categoryId, randomCardIdx);
   };
@@ -26,7 +26,7 @@ class CategoryView extends Component<CategoryViewProps> {
   public changeCard = (goUp: boolean): void => {
     const { cardIdx } = this.props.currentQuestion;
     const { cards } = this.props.category;
-    const categoryId = this.props.match.params.id;
+    const { categoryId } = this.props.match.params;
     let newCardIdx;
     if (goUp) {
       newCardIdx = cardIdx === cards.length - 1 ? 0 : cardIdx + 1;
@@ -42,28 +42,28 @@ class CategoryView extends Component<CategoryViewProps> {
 
     // check if categoryDetails for id does not exist, obtain from API
     if (!this.props.category) {
-      const { id } = this.props.match.params;
-      this.props.loadCategoryDetails(id);
+      const { categoryId } = this.props.match.params;
+      this.props.loadCategoryDetails(categoryId);
     }
   }
 
   public componentDidUpdate(prevProps: CategoryViewProps): void {
-    const id = this.props.match.params.id;
-    const prevId = prevProps.match.params.id;
+    const { categoryId } = this.props.match.params;
+    const prevId = prevProps.match.params.categoryId;
     // check if categoryDetails for id does not exist, obtain from API
     // run only once per categoryId Change
-    if (!this.props.category && id !== prevId) {
-      this.props.loadCategoryDetails(id);
+    if (!this.props.category && categoryId !== prevId) {
+      this.props.loadCategoryDetails(categoryId);
     }
 
     // clear current question in redux when changing categories
-    if (id !== prevId) {
+    if (categoryId !== prevId) {
       this.props.clearQuestion();
     }
   }
 
   public render(): React.ReactNode {
-    const { id } = this.props.match.params;
+    const { categoryId } = this.props.match.params;
     const { loading, error, category, currentQuestion } = this.props;
     return (
       <div>
@@ -80,7 +80,7 @@ class CategoryView extends Component<CategoryViewProps> {
         ) : (
           category && (
             <CategoryDetails
-              category={{ ...category, id }}
+              category={{ ...category, categoryId }}
               playCategory={this.playCategory}
               playRandomCategory={this.playRandomCategory}
             />
@@ -93,11 +93,11 @@ class CategoryView extends Component<CategoryViewProps> {
 
 const mapStateToProps = (state: any, props: any): any => {
   const { error, loading } = state;
-  const { id } = props.match.params;
+  const { categoryId } = props.match.params;
   return {
     loading,
     error,
-    category: state.categoryDetails[id],
+    category: state.categoryDetails[categoryId],
     currentQuestion: state.currentQuestion,
   };
 };
@@ -131,7 +131,7 @@ interface CurrentQuestion {
 }
 
 interface PathParams {
-  id: string;
+  categoryId: string;
 }
 
 interface CategoryDetailsProps {

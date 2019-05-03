@@ -10,7 +10,7 @@ class Routes extends Component {
         <Route exact path="/" render={(): React.ReactNode => <HomePage />} />
         <Route
           exact
-          path="/category/:id"
+          path="/category/:categoryId"
           render={(props): React.ReactNode => <CategoryView {...props} />}
         />
         {/* <Route

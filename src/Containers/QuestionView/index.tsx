@@ -15,9 +15,9 @@ class QuestionView extends Component<QuestionViewProps> {
       <div>
         <button onClick={this.handlePrevCard}>Prev Card</button>
         <button onClick={this.handleNextCard}>Next Card</button>
-        <div>Category Name: {categoryName}</div>
-        <div>Question: {card.question}</div>
-        <div>Answer: {card.answer}</div>
+        <h1>Category: {categoryName}</h1>
+        <p>Question: {card.question}</p>
+        <p>Answer: {card.answer}</p>
       </div>
     );
   }
@@ -34,14 +34,5 @@ interface QuestionViewProps {
   };
   changeCard: (goUp: boolean) => void;
 }
-
-// interface QuestionViewProps {
-//   match: {
-//     params: {
-//       id: string;
-//       cardId: string;
-//     };
-//   };
-// }
 
 export default QuestionView;
