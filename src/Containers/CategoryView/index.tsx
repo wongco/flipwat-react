@@ -11,16 +11,21 @@ import QuestionView from '../QuestionView';
 
 class CategoryView extends Component<CategoryViewProps> {
   public playCategory = (): void => {
-    const { categoryId } = this.props.match.params;
-    const cardIdx = 0; // starter card
-    this.props.loadQuestion(categoryId, cardIdx);
+    const { cards } = this.props.category;
+    if (cards.length > 0) {
+      const { categoryId } = this.props.match.params;
+      const cardIdx = 0; // starter card
+      this.props.loadQuestion(categoryId, cardIdx);
+    }
   };
 
   public playRandomCategory = (): void => {
     const { cards } = this.props.category;
-    const { categoryId } = this.props.match.params;
-    const randomCardIdx = Math.floor(Math.random() * cards.length);
-    this.props.loadQuestion(categoryId, randomCardIdx);
+    if (cards.length > 0) {
+      const { categoryId } = this.props.match.params;
+      const randomCardIdx = Math.floor(Math.random() * cards.length);
+      this.props.loadQuestion(categoryId, randomCardIdx);
+    }
   };
 
   public changeCard = (goUp: boolean): void => {
@@ -68,10 +73,10 @@ class CategoryView extends Component<CategoryViewProps> {
     return (
       <div>
         {loading && <div>Loading...</div>}
-        {error && <div>Error obtaining updated Category information!</div>}
+        {error && <div>Error obtaining updated information!</div>}
         {category &&
         currentQuestion.cardIdx >= 0 &&
-        currentQuestion.cardIdx < category.cards.length ? (
+        currentQuestion.categoryId === categoryId ? (
           <QuestionView
             categoryName={category.name}
             card={category.cards[currentQuestion.cardIdx]}
